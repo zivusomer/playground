@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'Get protected (Bearer token)'
+method: GET
+url: '{{baseURL}}/protected'
+order: 6000
+description: |-
+  Calls a protected endpoint using Bearer token auth.
+
+  Set `token` in the active environment.
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
+headers:
+  - key: Accept
+    value: application/json

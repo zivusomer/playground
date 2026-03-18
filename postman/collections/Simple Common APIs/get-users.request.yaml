@@ -1,0 +1,31 @@
+$kind: http-request
+name: 'Get users (limit=5)'
+method: GET
+url: '{{baseURL}}/users'
+order: 1000
+description: |-
+  Returns a list of users.
+
+  Example includes a `limit` query param.
+queryParams:
+  - key: limit
+    value: '5'
+headers:
+  - key: Accept
+    value: application/json
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status is 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      pm.test('Response is JSON (when Content-Type indicates JSON)', function () {
+        const ct = pm.response.headers.get('Content-Type') || '';
+        if (ct.toLowerCase().includes('application/json')) {
+          pm.response.to.be.json;
+        } else {
+          pm.expect(ct).to.not.equal('');
+        }
+      });

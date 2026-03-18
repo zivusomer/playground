@@ -4,3 +4,4 @@ export type { RequestHandler };
 export { requestLogger } from './requestLogger';
 export { asyncHandler } from './asyncHandler';
 export { errorHandler } from './errorHandler';
+export { requireAuth } from './requireAuth';

@@ -1,0 +1,12 @@
+$kind: http-request
+name: 'Health check'
+method: GET
+url: '{{baseURL}}/health'
+order: 7000
+description: |-
+  Node.js API: health check endpoint.
+
+  Expected to return JSON like `{ "status": "ok" }`.
+headers:
+  - key: Accept
+    value: application/json

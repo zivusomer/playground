@@ -1,0 +1,37 @@
+$kind: http-request
+name: 'Create user'
+method: POST
+url: '{{baseURL}}/users'
+order: 3000
+description: |-
+  Creates a new user.
+
+  Includes a JSON body example.
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status is 200 or 201', function () {
+        pm.expect([200, 201]).to.include(pm.response.code);
+      });
+
+      pm.test('Response has id (when JSON)', function () {
+        const ct = pm.response.headers.get('Content-Type') || '';
+        if (ct.toLowerCase().includes('application/json')) {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an('object');
+          pm.expect(json).to.have.property('id');
+        }
+      });

@@ -2,7 +2,11 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { asyncHandler } from './middleware';
 
 /** Use (req, res, next) for every handler; last in chain is wrapped so errors go to error middleware via next(err). */
-type RouteHandler = (req: Request, res: Response, next?: NextFunction) => void | Promise<void> | ReturnType<Response['json']>;
+type RouteHandler = (
+  req: Request,
+  res: Response,
+  next?: NextFunction
+) => void | Promise<void> | ReturnType<Response['json']>;
 
 function wrapHandler(handler: RouteHandler) {
   return asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
@@ -20,7 +24,11 @@ function register(
   if (handlers.length === 0) return;
   const last = handlers.pop()!;
   const middlewares = handlers;
-  (router[method] as (path: string, ...h: unknown[]) => void)(path, ...middlewares, wrapHandler(last));
+  (router[method] as (path: string, ...h: unknown[]) => void)(
+    path,
+    ...middlewares,
+    wrapHandler(last)
+  );
 }
 
 /**
@@ -33,9 +41,12 @@ export function createApi() {
   return {
     router,
     get: (path: string, ...handlers: RouteHandler[]) => register(router, 'get', path, ...handlers),
-    post: (path: string, ...handlers: RouteHandler[]) => register(router, 'post', path, ...handlers),
+    post: (path: string, ...handlers: RouteHandler[]) =>
+      register(router, 'post', path, ...handlers),
     put: (path: string, ...handlers: RouteHandler[]) => register(router, 'put', path, ...handlers),
-    patch: (path: string, ...handlers: RouteHandler[]) => register(router, 'patch', path, ...handlers),
-    delete: (path: string, ...handlers: RouteHandler[]) => register(router, 'delete', path, ...handlers),
+    patch: (path: string, ...handlers: RouteHandler[]) =>
+      register(router, 'patch', path, ...handlers),
+    delete: (path: string, ...handlers: RouteHandler[]) =>
+      register(router, 'delete', path, ...handlers),
   };
 }

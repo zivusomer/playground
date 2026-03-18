@@ -10,7 +10,9 @@ async function main(): Promise<void> {
   });
   server.on('error', (err: NodeJS.ErrnoException) => {
     if (err.code === 'EADDRINUSE') {
-      console.error(`Port ${PORT} is already in use. Stop the other process or use PORT=3001 npm start`);
+      console.error(
+        `Port ${PORT} is already in use. Stop the other process or use PORT=3001 npm start`
+      );
     } else {
       console.error(err);
     }

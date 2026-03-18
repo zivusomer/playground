@@ -12,6 +12,7 @@ Node.js API built with TypeScript, Express, and Gulp. Uses a middleware pattern 
 | `npm run build` | Compile only (no clean) |
 | `npm run clean` | Remove `dist/` only |
 | `npm test` | Run API tests (Node test runner + supertest) |
+| `npm run lint` | Run ESLint (with `--fix`) and Prettier on `src` and `test` (lint + format) |
 
 **Typical flow:** Run `gulp` to compile, then `npm start` to run the server. Or run `npm start` once (it compiles then starts).
 
@@ -114,5 +115,7 @@ In this project:
 - All API routes use the same **router** with **shared middleware** (e.g. `requestLogger`) via `router.use(...)`.
 - Each route is a **chain** of middlewares ending in a handler. Async handlers are wrapped in **`asyncHandler`** so thrown errors and promise rejections are passed as `next(err)` to the error middleware.
 - The **error middleware** in `app.ts` (the four-argument `(err, req, res, next)` function) catches those errors and returns a JSON error response.
+
+**Linting & formatting:** `npm run lint` runs ESLint with `--fix` and Prettier on `src` and `test`. **Pre-commit:** Husky runs `lint-staged`, which runs Prettier and ESLint on staged `.ts` files (format then lint); fix any reported issues or the commit will be blocked.
 
 Build: **Gulp** (see `gulpfile.js`). TypeScript options: **`tsconfig.json`**.

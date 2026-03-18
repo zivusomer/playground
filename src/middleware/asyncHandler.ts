@@ -1,10 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-type AsyncRequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<void>;
+type AsyncRequestHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
 /**
  * Wraps an async route handler so thrown errors are passed to Express error middleware via next(err).

@@ -14,12 +14,12 @@ const apiList: { prefix: string; router: Router; overview: ApiOverviewEntry[] }[
   { prefix: '/protected', router: protectedApi, overview: protectedOverview },
 ];
 
-function buildEndpoints(): Record<string, string> {
-  const endpoints: Record<string, string> = {};
+function buildEndpoints(baseUrl: string): { method: string; url: string }[] {
+  const endpoints: { method: string; url: string }[] = [];
   for (const { prefix, overview } of apiList) {
-    for (const { method, path, description } of overview) {
+    for (const { method, path } of overview) {
       const fullPath = prefix + (path === '/' ? '' : path);
-      endpoints[`${method} ${fullPath}`] = description;
+      endpoints.push({ method, url: `${baseUrl}${fullPath}` });
     }
   }
   return endpoints;
@@ -29,10 +29,11 @@ const router = Router();
 
 router.use(requestLogger);
 
-router.get('/', (_req, res) => {
+router.get('/', (req, res) => {
+  const baseUrl = `${req.protocol}://${req.get('host') || ''}`;
   res.json({
     message: 'Welcome to the API',
-    endpoints: buildEndpoints(),
+    endpoints: buildEndpoints(baseUrl),
   });
 });
 

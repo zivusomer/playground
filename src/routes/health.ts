@@ -8,4 +8,5 @@ function getHealth(_req: Request, res: Response, _next?: NextFunction): void {
 const api = createApi();
 api.get('/', getHealth);
 
+export const apiOverview = [{ method: 'GET', path: '/', description: 'Health check' }];
 export default api.router;

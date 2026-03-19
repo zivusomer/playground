@@ -80,4 +80,11 @@ api.post('/', createUser);
 api.put('/:id', updateUser);
 api.delete('/:id', deleteUser);
 
+export const apiOverview = [
+  { method: 'GET', path: '/', description: 'List users' },
+  { method: 'GET', path: '/:id', description: 'Get user by id' },
+  { method: 'POST', path: '/', description: 'Create user' },
+  { method: 'PUT', path: '/:id', description: 'Update user' },
+  { method: 'DELETE', path: '/:id', description: 'Delete user' },
+];
 export default api.router;

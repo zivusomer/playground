@@ -9,4 +9,5 @@ function getHelloWorld(_req: Request, res: Response, _next?: NextFunction): void
 const api = createApi();
 api.get('/', getHelloWorld);
 
+export const apiOverview = [{ method: 'GET', path: '/', description: 'Hello world' }];
 export default api.router;

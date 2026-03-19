@@ -9,4 +9,7 @@ function getProtected(_req: Request, res: Response, _next?: NextFunction): void 
 const api = createApi();
 api.get('/', requireAuth, getProtected);
 
+export const apiOverview = [
+  { method: 'GET', path: '/', description: 'Protected (Bearer token required)' },
+];
 export default api.router;

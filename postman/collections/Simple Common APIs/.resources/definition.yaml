@@ -1,9 +1,8 @@
 $kind: collection
 name: 'Simple Common APIs'
 description: |-
-  A small set of common REST-style requests for quickly testing typical CRUD patterns.
+  Requests for the playground API: root overview, hello-world, and echo.
 
   **How to use**
   - Select the *Development* or *Production* environment.
-  - Ensure `baseURL` is set correctly.
-  - (Optional) Set `token` for the Protected endpoint.
+  - Set `baseURL` (e.g. `http://localhost:3000` locally, or your App Runner URL).

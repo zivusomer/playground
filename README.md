@@ -30,6 +30,7 @@ Server listens on `http://localhost:3000` (or `PORT` env var).
 
 - **`GET /`** – Welcome JSON with links to the APIs.
 - **`GET /hello-world`** – `{"message":"Hello, World!"}`
+- **`GET /echo`** – No body; responds with `{ "message": "GET request with no message posted, echo nothing" }`.
 - **`POST /echo`** – Body JSON `{ "message": "<string>" }` – responds with the same `{ "message": "..." }`.
 
 ## Deployment (AWS App Runner)
@@ -69,7 +70,7 @@ src/
 ├── routes/
 │   ├── index.ts      # Mounts shared middleware, GET / overview, and each API router
 │   ├── helloWorld.ts # GET /hello-world
-│   └── echo.ts       # POST /echo (echo message body)
+│   └── echo.ts       # GET /echo (no body) and POST /echo (echo JSON message)
 └── middleware/
     ├── index.ts      # Exports shared middleware and types
     ├── requestLogger.ts

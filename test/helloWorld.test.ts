@@ -11,6 +11,14 @@ describe('GET /hello-world', () => {
   });
 });
 
+describe('GET /echo', () => {
+  it('returns GET echo message with no body', async () => {
+    const res = await request(app).get('/echo');
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.message, 'GET request with no message posted, echo nothing');
+  });
+});
+
 describe('POST /echo', () => {
   it('returns the message from the body', async () => {
     const res = await request(app).post('/echo').send({ message: 'hello from test' });

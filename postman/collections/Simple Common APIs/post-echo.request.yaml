@@ -2,7 +2,7 @@ $kind: http-request
 name: 'Echo message'
 method: POST
 url: '{{baseURL}}/echo'
-order: 2000
+order: 2100
 description: |-
   Sends a JSON body with a string `message` and receives the same value back.
 

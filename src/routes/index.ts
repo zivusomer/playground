@@ -1,17 +1,13 @@
 import { Express, Router } from 'express';
 import { requestLogger } from '../middleware';
 import helloWorld, { apiOverview as helloWorldOverview } from './helloWorld';
-import health, { apiOverview as healthOverview } from './health';
-import users, { apiOverview as usersOverview } from './users';
-import protectedApi, { apiOverview as protectedOverview } from './protected';
+import echo, { apiOverview as echoOverview } from './echo';
 
 export type ApiOverviewEntry = { method: string; path: string; description: string };
 
 const apiList: { prefix: string; router: Router; overview: ApiOverviewEntry[] }[] = [
   { prefix: '/hello-world', router: helloWorld, overview: helloWorldOverview },
-  { prefix: '/health', router: health, overview: healthOverview },
-  { prefix: '/users', router: users, overview: usersOverview },
-  { prefix: '/protected', router: protectedApi, overview: protectedOverview },
+  { prefix: '/echo', router: echo, overview: echoOverview },
 ];
 
 function buildEndpoints(baseUrl: string): { method: string; url: string }[] {

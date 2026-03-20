@@ -26,7 +26,11 @@ Node.js API built with TypeScript, Express, and Gulp. Uses a middleware pattern 
 
 Alternatively: run `npm start` (which uses `--inspect`), then **Run → Start Debugging** and choose **"Attach to Node"** so the debugger attaches to the already-running process; then trigger the request.
 
-Server listens on `http://localhost:3000` (or `PORT` env var). Example: `GET /hello-world` returns `{"message":"Hello, World!"}`.
+Server listens on `http://localhost:3000` (or `PORT` env var).
+
+- **`GET /`** – Welcome JSON with links to the APIs.
+- **`GET /hello-world`** – `{"message":"Hello, World!"}`
+- **`POST /echo`** – Body JSON `{ "message": "<string>" }` – responds with the same `{ "message": "..." }`.
 
 ## Deployment (AWS App Runner)
 
@@ -63,8 +67,9 @@ src/
 ├── startup.ts        # Logic that runs once on server boot (e.g. DB connect)
 ├── api.ts            # createApi() – thin route helper (asyncHandler applied for you)
 ├── routes/
-│   ├── index.ts      # Mounts shared middleware and each API router
-│   └── helloWorld.ts # One file per API: createApi(), api.get/post/…, export api.router
+│   ├── index.ts      # Mounts shared middleware, GET / overview, and each API router
+│   ├── helloWorld.ts # GET /hello-world
+│   └── echo.ts       # POST /echo (echo message body)
 └── middleware/
     ├── index.ts      # Exports shared middleware and types
     ├── requestLogger.ts
@@ -110,7 +115,7 @@ Then `GET /my-api` is handled by `myApi.ts`. Use the **`(req, res, next)`** sign
 
 ### New middleware
 
-1. Add a new file under **`src/middleware/`** (e.g. `src/middleware/requireAuth.ts`).
+1. Add a new file under **`src/middleware/`** (e.g. `src/middleware/myMiddleware.ts`).
 2. Implement a function `(req, res, next) => { ... }` and call `next()` or `next(err)`.
 3. Export it from **`src/middleware/index.ts`**.
 4. Use it in **`src/routes/index.ts`**:

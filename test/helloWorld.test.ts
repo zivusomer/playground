@@ -10,3 +10,16 @@ describe('GET /hello-world', () => {
     assert.strictEqual(res.body.message, 'Hello, World!');
   });
 });
+
+describe('POST /echo', () => {
+  it('returns the message from the body', async () => {
+    const res = await request(app).post('/echo').send({ message: 'hello from test' });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.message, 'hello from test');
+  });
+
+  it('returns 400 when message is missing or not a string', async () => {
+    const res = await request(app).post('/echo').send({});
+    assert.strictEqual(res.status, 400);
+  });
+});
